@@ -6,7 +6,7 @@ then
   exit 1
 fi
 
-pacman -S python wireguard-tools curl
+pacman -S --needed --noconfirm python wireguard-tools curl
 curl -fsSL -o /bin/wg-request https://raw.githubusercontent.com/greyltc/wg-request/master/wg-request
 chmod +x /bin/wg-request
 
