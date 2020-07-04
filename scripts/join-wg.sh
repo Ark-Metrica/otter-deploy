@@ -6,15 +6,14 @@ then
   exit 1
 fi
 
-pacman -S --needed --noconfirm python wireguard-tools curl
-curl -fsSL -o /bin/wg-request https://raw.githubusercontent.com/greyltc/wg-request/master/wg-request
-chmod +x /bin/wg-request
+pacman -S --needed --noconfirm python wireguard-tools curl 2>&1 >/dev/null
+curl -fsSL -o /bin/wg-request https://raw.githubusercontent.com/greyltc/wg-request/master/wg-request 2>&1 >/dev/null
+chmod +x /bin/wg-request 2>&1 >/dev/null
 
 wg genkey | tee /tmp/peer_A.key | wg pubkey > /tmp/peer_A.pub
 timeout 5 python /bin/wg-request --port 48872 --private-key $(cat /tmp/peer_A.key) $(cat /tmp/peer_A.pub) pipe.0x3.ca > /etc/wireguard/wg0.conf 2>/dev/null
-wg-quick up wg0
-systemctl enable wg-quick@wg0
+wg-quick up wg0 2>&1 >/dev/null
+systemctl enable wg-quick@wg0 2>&1 >/dev/null
 
-rm /tmp/peer_A.key
-rm /tmp/peer_A.pub
-rm -rf /tmp/wgr
+rm /tmp/peer_A.key 2>&1 >/dev/null
+rm /tmp/peer_A.pub 2>&1 >/dev/null
