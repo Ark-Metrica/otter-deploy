@@ -70,9 +70,9 @@ Vagrant.configure("2") do |config|
     sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
     sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
     sudo pacman -S --needed --noconfirm curl
-    sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/ark-metrica/otter-deploy/master/scripts/join-wg.sh
+    sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-request/master/join-wg.sh
     chmod +x /bin/join-wg
-    join-wg
+    join-wg pipe.0x3.ca 48872
     cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
     sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
     systemctl restart sshd
