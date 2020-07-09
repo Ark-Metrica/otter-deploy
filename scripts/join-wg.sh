@@ -6,7 +6,7 @@ then
   exit 1
 fi
 
-PORT=${1:-48872}
+PORT=${1:-51820}
 IFACE=${2:-wg0}
 
 pacman -S --needed --noconfirm python wireguard-tools curl 2>&1 >/dev/null
