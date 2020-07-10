@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+    reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
     sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
     sudo pacman -S --needed --noconfirm curl
     sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-request/master/join-wg.sh
