@@ -69,7 +69,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
     sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
-    sudo pacman -S --needed --noconfirm curl
     sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-request/master/join-wg.sh
     chmod +x /bin/join-wg
     sudo join-wg pipe.0x3.ca 48872
