@@ -69,13 +69,14 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
     sudo bash -c "yes | pacman -Syyuu --needed wireguard-tools"
-    sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
+    sudo sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
     sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-request/master/join-wg.sh
-    chmod +x /bin/join-wg
+    sudo chmod +x /bin/join-wg
     sudo join-wg pipe.0x3.ca 48872
-    cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
-    sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
-    systemctl restart sshd
-    systemctl restart systemd-networkd
+    sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
+    sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
+    sudo systemctl restart sshd
+    sudo systemctl restart systemd-networkd
+    sudo systemctl disable netctl@eth1.service
   SHELL
 end
