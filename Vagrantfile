@@ -81,5 +81,6 @@ Vagrant.configure("2") do |config|
     sudo systemctl restart sshd
     sudo systemctl restart systemd-networkd
     sudo systemctl disable netctl@eth1.service
+    sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils"
   SHELL
 end
