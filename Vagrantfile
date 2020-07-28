@@ -69,18 +69,6 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-    sudo bash -c "yes | pacman -Syyuu --needed wireguard-tools"
-    sudo sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
-    sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-request/master/join-wg.sh
-    sudo chmod +x /bin/join-wg
-    sudo join-wg pipe.0x3.ca 48872
-    sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
-    sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
-    sudo systemctl restart sshd
-    sudo systemctl restart systemd-networkd
-    sudo systemctl disable netctl@eth1.service
-    sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils"
-  SHELL
+  config.vm.provision "shell", path: "scripts/provision1.sh"
+  config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --ask-become-pass"
 end
