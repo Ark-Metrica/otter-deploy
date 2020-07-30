@@ -70,5 +70,5 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "scripts/provision1.sh"
-  config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --ask-become-pass"
+  config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter"
 end
