@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664']
+  config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
   
   # make sure ssh-reconnect doesn't give up
   config.ssh.connect_timeout = 180
@@ -69,8 +69,10 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
-  config.trigger.after :provision do |trigger|
-    trigger.run = {inline: "vagrant reload"}
+  #config.trigger.after :provision do |trigger|
+  config.trigger.after :"Vagrant::Action::Builtin::Provision", type: :action do |t|
+    t.info = "Setup done!"
+    t.run = {inline: "vagrant reload"}
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
@@ -78,15 +80,16 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "scripts/provision1.sh"
   config.vm.provision "ansible_local" do |ansible|
-    #ansible.provisioning_path = "/tmp/.ansible"
     ansible.limit = "*"
     ansible.playbook = "local.yml"
     ansible.provisioning_path = "/vagrant/provision"
     ansible.inventory_path = "inventory"
     ansible.playbook_command = "ansible-pull"
     ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '--directory', '/tmp/ans', '--purge', '-C', 'otter']
-    ansible.tags = ['provision', 'software']
-    ansible.verbose = true
+    ansible.tags = ['provision', 'user', 'software']
+    #ansible.verbose = true
   end
+
+  #config.vm.provision "Done!", type: "shell", inline: "echo Done!; reboot"
   #config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --tags 'provision,software'"
 end
