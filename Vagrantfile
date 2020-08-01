@@ -46,6 +46,9 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664']
+  
+  # make sure ssh-reconnect doesn't give up
+  config.ssh.connect_timeout = 180
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -56,7 +59,7 @@ Vagrant.configure("2") do |config|
     vb.gui = true
     vb.customize ["modifyvm", :id, "--vram", "128"]
     #vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
-    vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"] # should be the best, but won't resize today
+    vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]  # should give best performance
     vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
     # Customize the amount of memory on the VM:
     #vb.memory = "8192"
