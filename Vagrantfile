@@ -69,9 +69,24 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
+  config.trigger.after :provision do |trigger|
+    trigger.run = {inline: "vagrant reload"}
+  end
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "scripts/provision1.sh"
-  config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --tags 'provision,software'", reboot: true
+  config.vm.provision "ansible_local" do |ansible|
+    #ansible.provisioning_path = "/tmp/.ansible"
+    ansible.limit = "*"
+    ansible.playbook = "local.yml"
+    ansible.provisioning_path = "/vagrant/provision"
+    ansible.inventory_path = "inventory"
+    ansible.playbook_command = "ansible-pull"
+    ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '--directory', '/tmp/ans', '--purge', '-C', 'otter']
+    ansible.tags = ['provision', 'software']
+    ansible.verbose = true
+  end
+  #config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --tags 'provision,software'"
 end

@@ -10,5 +10,5 @@ sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
 sudo systemctl restart sshd
 sudo systemctl restart systemd-networkd
 sudo systemctl disable netctl@eth1.service
-sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils ansible git"
-
+#sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils ansible git"
+sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils git"
