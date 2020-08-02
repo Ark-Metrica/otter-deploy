@@ -1,2 +1,2 @@
-# otter-deploy
-software deployment for otter
+# vagrant-boxmaker
+makes vagrant boxes for vagrant cloud
