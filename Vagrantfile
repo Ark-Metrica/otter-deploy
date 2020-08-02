@@ -61,6 +61,7 @@ Vagrant.configure("2") do |config|
     #vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
     vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]  # should give best performance
     vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # Customize the amount of memory on the VM:
     #vb.memory = "8192"
     vb.memory = "6144"
@@ -68,12 +69,13 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
-
+  
+  # need VAGRANT_EXPERIMENTAL="typed_triggers" for this stuff and I still can't get it to work
   #config.trigger.after :provision do |trigger|
-  config.trigger.after :"Vagrant::Action::Builtin::Provision", type: :action do |t|
-    t.info = "Setup done!"
-    t.run = {inline: "vagrant reload"}
-  end
+  #config.trigger.after :"Vagrant::Action::Builtin::Provision", type: :action do |t|
+  #  t.info = "Setup done!"
+  #  t.run = {inline: "vagrant reload"}
+  #end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
@@ -85,11 +87,8 @@ Vagrant.configure("2") do |config|
     ansible.provisioning_path = "/vagrant/provision"
     ansible.inventory_path = "inventory"
     ansible.playbook_command = "ansible-pull"
-    ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '--directory', '/tmp/ans', '--purge', '-C', 'otter']
-    ansible.tags = ['provision', 'user', 'software']
+    ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '-C', 'otter']
+    ansible.tags = ['provision', 'make_admin', 'make_user', 'software', 'cleanup']
     #ansible.verbose = true
   end
-
-  #config.vm.provision "Done!", type: "shell", inline: "echo Done!; reboot"
-  #config.vm.provision "shell", inline: "ansible-pull -U https://github.com/greyltc/ansible-playbooks -C otter --tags 'provision,software'"
 end

@@ -6,6 +6,9 @@ sudo curl -fsSL -o /bin/join-wg https://raw.githubusercontent.com/greyltc/wg-req
 sudo chmod +x /bin/join-wg
 sudo cp /vagrant/scripts/wg-helper /bin/.
 sudo chmod +x /bin/wg-helper
+sudo cp /vagrant/scripts/wg-helper.service /etc/systemd/system/.
+sudo chmod 644 /etc/systemd/system/wg-helper.service
+sudo systemctl enable wg-helper.service
 sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
 sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
 sudo systemctl restart sshd
