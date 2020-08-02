@@ -1,0 +1,16 @@
+#/usr/bin/env bash
+
+i=0
+while test $1 -le 10
+do
+		if mountpoint -q /vagrant
+		then
+				sleep 1
+				break
+		else
+				sleep 5
+				((i++))
+		fi
+done
+
+exit 0
