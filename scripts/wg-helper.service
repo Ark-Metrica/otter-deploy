@@ -1,7 +1,7 @@
 [Unit]
 Description=wg helper
-After=network-online.target
-Wants=network-online.target
+After=network-online.target vwait.service
+Wants=network-online.target vwait.service
 
 [Service]
 Type=idle
