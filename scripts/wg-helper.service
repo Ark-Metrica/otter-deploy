@@ -1,0 +1,11 @@
+[Unit]
+Description=wg helper
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/wg-helper
+
+[Install]
+WantedBy=network-online.target
