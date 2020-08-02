@@ -1,6 +1,6 @@
 [Unit]
 Description=wg helper
-After=network-online.target
+After=network-online.target vagrant.mount
 Wants=network-online.target
 
 [Service]
