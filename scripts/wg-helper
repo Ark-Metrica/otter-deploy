@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if test ! -a /etc/wireguard/wg0.conf
+then
+	if test -a /vagrant/wg0.conf
+	then
+		cmp --silent /vagrant/wg0.conf /etc/wireguard/wg0.conf
+		if test $? -ne 0
+		then
+			cp /vagrant/wg0.conf /etc/wireguard/.
+			wg-quick down wg0 >/dev/null 2>/dev/null
+			wg-quick up wg0 >/dev/null 2>/dev/null
+			systemctl enable wg-quick@wg0 >/dev/null 2>/dev/null
+		fi
+	else
+		join-wg pipe.0x3.ca
+		if test -d /vagrant
+		then
+			cp /etc/wireguard/wg0.conf /vagrant/.
+		fi
+	fi
+fi
