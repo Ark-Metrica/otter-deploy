@@ -7,7 +7,7 @@ Prior to packaging, you must replace the private re-generated ssh key with the p
 ```
 curl -fsSL -o /home/vagrant/.ssh/authorized_keys https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
 ```
-
+then package it
 ```
 VAGRANT_HOME=./vtmp vagrant package --base vagrant-boxmaker_default_1596385806730_16282 --output ./out.box
 ```
