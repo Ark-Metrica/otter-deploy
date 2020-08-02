@@ -1,0 +1,9 @@
+[Unit]
+Description=vagrant waiter
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/vwait
+
+[Install]
+WantedBy=multi-user.target
