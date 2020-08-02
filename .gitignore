@@ -1,3 +1,4 @@
 .vagrant/
 data/
 wg0.conf
+*.box
