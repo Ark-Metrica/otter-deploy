@@ -19,5 +19,13 @@ then
       cp /etc/wireguard/wg0.conf /vagrant/.
     fi
   fi
+else
+  if mountpoint -q /vagrant
+  then
+    if ! -a /vagrant/wg0.conf
+    then
+      cp /etc/wireguard/wg0.conf /vagrant/.
+    fi
+  fi
 fi
 exit 0
