@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "measurebox"
+    vb.name = "measurebox_dev"
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
     vb.customize ["modifyvm", :id, "--vram", "128"]
