@@ -47,9 +47,6 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
   
-  # make sure ssh-reconnect doesn't give up
-  config.ssh.connect_timeout = 180
-
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -57,15 +54,15 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.name = "measurebox_dev"
     # Display the VirtualBox GUI when booting the machine
-    vb.gui = true
+    #vb.gui = true
     vb.customize ["modifyvm", :id, "--vram", "128"]
     #vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
     vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]  # should give best performance
     vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # Customize the amount of memory on the VM:
-    #vb.memory = "8192"
-    vb.memory = "6144"
+    vb.memory = "8192"
+    #vb.memory = "6144"
   end
   #
   # View the documentation for the provider you are using for more
