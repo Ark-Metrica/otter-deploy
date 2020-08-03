@@ -81,11 +81,11 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", path: "scripts/provision1.sh"
-  config.vm.provision "ansible_local" do |ansible|
+  config.vm.provision "shell", path: "scripts/provision1.sh"  # phase 1
+  config.vm.provision "ansible_local" do |ansible|  # phase 2
     ansible.limit = "*"
     ansible.playbook = "local.yml"
-    ansible.provisioning_path = "/vagrant/provision"
+    ansible.provisioning_path = "/vagrant/ansible"
     ansible.inventory_path = "inventory"
     ansible.playbook_command = "ansible-pull"
     ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '-C', 'otter']
