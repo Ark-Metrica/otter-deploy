@@ -2,3 +2,4 @@
 data/
 wg0.conf
 *.box
+measurement_config.ini
