@@ -39,14 +39,16 @@ Vagrant.configure("2") do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   #config.vm.network "public_network", auto_config: false
-  config.vm.network "public_network", auto_config: true, bridge: "eno1" # for bridge interface auto-select
+  config.vm.network "public_network", auto_config: false, bridge: "eno1" # for bridge interface auto-select
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
+  
+  # this should exist by default and might not be needed
+  #config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
   
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
