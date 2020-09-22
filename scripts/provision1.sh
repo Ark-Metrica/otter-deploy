@@ -20,9 +20,10 @@ sudo cp /vagrant/scripts/vwait.service /etc/systemd/system/.
 sudo chmod 644 /etc/systemd/system/vwait.service
 sudo systemctl enable vwait.service
 
-sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
-sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
-sudo systemctl restart sshd
-sudo systemctl restart systemd-networkd
-sudo systemctl disable netctl@eth1.service
+# fix vagrant networking
+#sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
+#sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
+#sudo systemctl restart sshd
+#sudo systemctl restart systemd-networkd
+#sudo systemctl disable netctl@eth1.service
 sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils git"
