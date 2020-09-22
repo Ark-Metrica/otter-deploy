@@ -13,12 +13,12 @@ sudo cp /vagrant/scripts/wg-helper.service /etc/systemd/system/.
 sudo chmod 644 /etc/systemd/system/wg-helper.service
 sudo systemctl enable wg-helper.service
 
-sudo cp /vagrant/scripts/vwait /bin/.
-sudo chmod +x /bin/vwait
+#sudo cp /vagrant/scripts/vwait /bin/.
+#sudo chmod +x /bin/vwait
 
-sudo cp /vagrant/scripts/vwait.service /etc/systemd/system/.
-sudo chmod 644 /etc/systemd/system/vwait.service
-sudo systemctl enable vwait.service
+#sudo cp /vagrant/scripts/vwait.service /etc/systemd/system/.
+#sudo chmod 644 /etc/systemd/system/vwait.service
+#sudo systemctl enable vwait.service
 
 # fix vagrant networking
 #sudo cp /etc/systemd/network/eth0.network /etc/systemd/network/eth1.network
