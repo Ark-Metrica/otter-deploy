@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# pre-provisioning script
+
 sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 sudo bash -c "yes | pacman -Syyuu --needed wireguard-tools"
 sudo sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
