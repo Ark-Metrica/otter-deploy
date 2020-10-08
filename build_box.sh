@@ -3,6 +3,12 @@ set -e
 
 MACHINE="measurebox_dev"
 
+# needed to resize the guest
+export VAGRANT_EXPERIMENTAL="disks"
+
+# alternative disk resize choice
+#vagrant plugin install vagrant-disksize
+
 # provision
 vagrant up
 echo "Done provisioning"
@@ -37,4 +43,5 @@ rm -rf vtmp | true
 echo "Packaging done"
 
 # read its checksum
+echo "Calculating SHA512 checksum..."
 sha512sum out.box

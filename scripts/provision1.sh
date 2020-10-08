@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-# pre-provisioning script
+pacman-key --init
+pacman-key --populate archlinux
 
 sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+sudo bash -c "yes | pacman -S gptfdisk parted"
+
+sudo sgdisk --resize-table=2 /dev/sda
+sudo partprobe
+
+sudo sgdisk -N 0 -t 0:8300 /dev/sda
+sudo partprobe
+sudo btrfs device add /dev/sda3 /
+sudo btrfs filesystem balance /
+
 sudo bash -c "yes | pacman -Syyuu --needed wireguard-tools"
 sudo sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
 
@@ -31,3 +42,4 @@ sudo systemctl restart sshd
 sudo systemctl restart systemd-networkd
 sudo systemctl disable netctl@eth1.service
 sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils git"
+

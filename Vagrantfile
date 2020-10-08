@@ -41,6 +41,17 @@ Vagrant.configure("2") do |config|
   #config.vm.network "public_network", auto_config: false
   config.vm.network "public_network", auto_config: false, bridge: "eno1" # for bridge interface auto-select
 
+  # need env var export VAGRANT_EXPERIMENTAL="disks"
+  # for this:
+  config.vm.disk :disk, size: "100GB", primary: true
+  # doesn't resize the partition
+
+  # need vagrant plugin install vagrant-disksize
+  # for this one
+  #config.disksize.size = '50GB'
+  
+  config.vm.boot_timeout = 300
+
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
