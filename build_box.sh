@@ -4,7 +4,7 @@ set -e
 MACHINE="measurebox_dev"
 
 # needed to resize the guest
-export VAGRANT_EXPERIMENTAL="disks"
+#export VAGRANT_EXPERIMENTAL="disks"
 
 # alternative disk resize choice
 #vagrant plugin install vagrant-disksize
