@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "archlinux/archlinux"
+  config.vm.box_version = "2020.08.12"
+  #config.vm.box_version = "20201001.5424"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -43,7 +45,7 @@ Vagrant.configure("2") do |config|
 
   # need env var export VAGRANT_EXPERIMENTAL="disks"
   # for this:
-  config.vm.disk :disk, size: "10GB", primary: true
+  # config.vm.disk :disk, size: "10GB", primary: true
   # doesn't resize the partition
 
   # need vagrant plugin install vagrant-disksize
@@ -55,11 +57,12 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # disable the default
-  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder ".", "/vagrant", mount_options: ["fmode=666","dmode=777","dmask=000","fmask=000"]
+  #config.vm.synced_folder ".", "/vagrant", disabled: true
+  #config.vm.synced_folder ".", "/vagrant", mount_options: ["umask=002"]
   
   # make a new one with group writes enabled
-  config.vm.synced_folder ".", "/portal", mount_options: ["umask=002"], automount: true
+  #config.vm.synced_folder ".", "/mnt", mount_options: ["umask=002"], automount: true
   
   # this should exist by default and might not be needed
   #config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
