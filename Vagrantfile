@@ -105,7 +105,7 @@ Vagrant.configure("2") do |config|
     ansible.provisioning_path = "/vagrant/ansible"
     ansible.inventory_path = "inventory"
     ansible.playbook_command = "ansible-pull"
-    ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '-C', 'otter']
+    ansible.raw_arguments = ['-U', 'https://github.com/greyltc/ansible-playbooks', '-C', 'master']
     ansible.tags = ['provision', 'make_admin', 'make_user', 'software', 'cleanup']
     #ansible.verbose = true
   end
