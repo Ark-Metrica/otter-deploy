@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+# fix up pacman
 pacman-key --init
 pacman-key --populate archlinux
-
 sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+# stuff for having enough room to grow
 sudo bash -c "yes | pacman -S gptfdisk parted"
 
 sudo sgdisk --resize-table=2 /dev/sda
@@ -41,5 +43,8 @@ sudo sed -i 's|Name=eth0|Name=eth1|g' /etc/systemd/network/eth1.network
 sudo systemctl restart sshd
 sudo systemctl restart systemd-networkd
 sudo systemctl disable netctl@eth1.service
-sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils git"
 
+# get the proper vbox guest utils going
+sudo bash -c "yes | pacman -Syu --needed virtualbox-guest-utils git"
+sudo systemctl enable vboxservice.service
+sudo systemctl start vboxservice.service

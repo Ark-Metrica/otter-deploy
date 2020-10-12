@@ -43,20 +43,23 @@ Vagrant.configure("2") do |config|
 
   # need env var export VAGRANT_EXPERIMENTAL="disks"
   # for this:
-  config.vm.disk :disk, size: "100GB", primary: true
+  config.vm.disk :disk, size: "10GB", primary: true
   # doesn't resize the partition
 
   # need vagrant plugin install vagrant-disksize
   # for this one
   #config.disksize.size = '50GB'
   
-  config.vm.boot_timeout = 300
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  # disable the default
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  
+  # make a new one with group writes enabled
+  config.vm.synced_folder ".", "/portal", mount_options: ["umask=002"], automount: true
   
   # this should exist by default and might not be needed
   #config.vm.synced_folder "./", "/vagrant", owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=775,fmode=664'], automount: true
@@ -72,7 +75,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--vram", "128"]
     #vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
     vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]  # should give best performance
-    vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # Customize the amount of memory on the VM:
     vb.memory = "8192"
